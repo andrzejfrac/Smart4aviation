@@ -3,9 +3,6 @@ package smart4aviation;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-/**
- * Created by Andy on 9/18/2016.
- */
 public class RegistrationPage {
     private WebDriver webDriver;
     private HomePage homePage;

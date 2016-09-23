@@ -3,23 +3,13 @@ package smart4aviation;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.Parameters;
 
-import java.util.Iterator;
-import java.util.Set;
-
-/**
- * Created by Andy on 9/17/2016.
- */
 public class HomePage {
     private WebDriver webDriver;
     private static final String ADDRESS = "http://demo.nopcommerce.com";
 
-    //    private NavigationMenu navigationMenu;
     public HomePage(WebDriver webDriver) {
         this.webDriver = webDriver;
-//        this.navigationMenu = new NavigationMenu(webDriver);
-
     }
 
     //    @Parameters({"URLAddress"})
@@ -27,7 +17,7 @@ public class HomePage {
         System.out.println("openAddres starts");
         webDriver.get(ADDRESS);
         System.out.println("openAddres ends");
-return this;
+        return this;
     }
 
     public void login(String email, String password) {
@@ -41,7 +31,7 @@ return this;
 
     public RegistrationPage goToRegistration() {
         webDriver.findElement(By.className("ico-register")).click();
-        return new RegistrationPage(webDriver,this);
+        return new RegistrationPage(webDriver, this);
     }
 
     public SearchResultPage sendToSearchBox(String keys) throws InterruptedException {
@@ -57,7 +47,5 @@ return this;
         System.out.println("HomePage sendToSearchBox ends");
         return new SearchResultPage(webDriver);
     }
-//    public NavigationMenu getNavigationMenu(){
-//        return navigationMenu;
 
 }
