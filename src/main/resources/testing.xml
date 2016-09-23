@@ -1,0 +1,25 @@
+<suite name="Group of group Suite" verbose="1">
+    <parameter name="URLAddress" value="http://demo.nopcommerce.com" />
+    <test name="Group of group Test">
+        <groups>
+            <define name="include-group">
+                <include name="include-test-one" />
+                <!--<include name="include-test-two" />-->
+                <!--<include name="include-test-tree" />-->
+            </define>
+            <!--<define name="exclude-group">-->
+                <!--<include name="test-one-exclude" />-->
+                <!--<include name="test-two-exclude" />-->
+            <!--</define>-->
+            <run>
+                <include name="include-group" />
+                <exclude name="exclude-group" />
+            </run>
+        </groups>
+        <classes>
+            <class name="smart4aviation.tests.TestingMainClass" />
+            <!--<class name="andrzej.selenium.testng.TestowanieGoogle" />-->
+            <!--<class name="andrzej.selenium.testng.HomePage" />-->
+        </classes>
+    </test>
+</suite>
