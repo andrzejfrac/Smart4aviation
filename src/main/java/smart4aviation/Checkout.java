@@ -2,13 +2,18 @@ package smart4aviation;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Checkout {
+    private static final By CONFIRM_ORDER_NEXT_STEP_BUTTON = By.className("confirm-order-next-step-button");
     private WebDriver webDriver;
+    private WebDriverWait wait;
 
     public Checkout(WebDriver webDriver) {
         this.webDriver = webDriver;
+        this.wait = new WebDriverWait(webDriver, 4000);
     }
 
     public Checkout billingAddress() throws InterruptedException {
@@ -28,7 +33,8 @@ public class Checkout {
 
     public Checkout shippingMethod() throws InterruptedException {
         System.out.println("shippingMethod starts");
-        Thread.sleep(2000);
+//        Thread.sleep(4000);
+        wait.until(ExpectedConditions.elementToBeClickable(By.className("shipping-method-next-step-button")));
         webDriver.findElement(By.className("shipping-method-next-step-button")).click();
         System.out.println("shippingMethod ends");
         return this;
@@ -36,9 +42,11 @@ public class Checkout {
 
     public Checkout paymentMethodAndInformation() throws InterruptedException {
         System.out.println("paymentMethodAndInformation starts");
-        Thread.sleep(2000);
+//        Thread.sleep(4000);
+        wait.until(ExpectedConditions.elementToBeClickable(By.className("payment-method-next-step-button")));
         webDriver.findElement(By.className("payment-method-next-step-button")).click();
-        Thread.sleep(2000);
+//        Thread.sleep(4000);
+        wait.until(ExpectedConditions.elementToBeClickable(By.className("payment-info-next-step-button")));
         webDriver.findElement(By.className("payment-info-next-step-button")).click();
         System.out.println("paymentMethodAndInformation ends");
         return this;
@@ -46,9 +54,10 @@ public class Checkout {
 
     public Checkout paymentConfirmation() throws InterruptedException {
         System.out.println("paymentConfirmation starts");
-        Thread.sleep(2000);
-        webDriver.findElement(By.className("confirm-order-next-step-button")).click();
-        Thread.sleep(2000);
+//        Thread.sleep(4000);
+        wait.until(ExpectedConditions.elementToBeClickable(CONFIRM_ORDER_NEXT_STEP_BUTTON));
+        webDriver.findElement(CONFIRM_ORDER_NEXT_STEP_BUTTON).click();
+//        Thread.sleep(4000);
         System.out.println("paymentConfirmation ends");
         return this;
     }

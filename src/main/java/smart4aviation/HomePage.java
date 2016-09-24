@@ -3,13 +3,17 @@ package smart4aviation;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class HomePage {
     private WebDriver webDriver;
     private static final String ADDRESS = "http://demo.nopcommerce.com";
+    private WebDriverWait wait;
 
     public HomePage(WebDriver webDriver) {
         this.webDriver = webDriver;
+        this.wait = new WebDriverWait(webDriver, 4000);
     }
 
     //    @Parameters({"URLAddress"})
@@ -36,12 +40,13 @@ public class HomePage {
 
     public SearchResultPage sendToSearchBox(String keys) throws InterruptedException {
         System.out.println("HomePage sendToSearchBox starts");
-        Thread.sleep(2000);
+//        Thread.sleep(2000);
+        wait.until(ExpectedConditions.alertIsPresent()); //elementToBeClickable(By.className("product-box-add-to-cart-button")));
         Alert alert = webDriver.switchTo().alert();
         alert.accept();
         webDriver.findElement(By.className("search-box-text")).sendKeys(keys);
         webDriver.findElement(By.className("button-1")).click();
-        Thread.sleep(1000);
+//        Thread.sleep(1000);
 //        Thread.sleep(100);
 //        webDriver.findElement(By.className("product-box-add-to-cart-button")).click();
         System.out.println("HomePage sendToSearchBox ends");
