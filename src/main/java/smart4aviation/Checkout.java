@@ -61,4 +61,9 @@ public class Checkout {
         System.out.println("paymentConfirmation ends");
         return this;
     }
+    public String getFinalConfimationMessage(){
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.className("title")));
+        return webDriver.findElement(By.xpath("html/body/div[5]/div[3]/div/div/div/div[2]/div/div[1]/strong")).getText();
+
+    }
 }

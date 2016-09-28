@@ -41,9 +41,9 @@ public class HomePage {
     public SearchResultPage sendToSearchBox(String keys) throws InterruptedException {
         System.out.println("HomePage sendToSearchBox starts");
 //        Thread.sleep(2000);
-        wait.until(ExpectedConditions.alertIsPresent()); //elementToBeClickable(By.className("product-box-add-to-cart-button")));
-        Alert alert = webDriver.switchTo().alert();
-        alert.accept();
+//        wait.until(ExpectedConditions.alertIsPresent()); //elementToBeClickable(By.className("product-box-add-to-cart-button")));
+//        Alert alert = webDriver.switchTo().alert();
+//        alert.accept();
         webDriver.findElement(By.className("search-box-text")).sendKeys(keys);
         webDriver.findElement(By.className("button-1")).click();
 //        Thread.sleep(1000);
@@ -52,5 +52,10 @@ public class HomePage {
         System.out.println("HomePage sendToSearchBox ends");
         return new SearchResultPage(webDriver);
     }
+    public String getUserEmail() throws InterruptedException {
+        Thread.sleep(10000);
+       return webDriver.findElement(By.className("ico-account")).getText();
+    }
+
 
 }

@@ -23,4 +23,9 @@ public class ShoppingCart {
         System.out.println("goToCheckout selecting aggre terms ends ");
         return new Checkout(webDriver);
     }
+    public String getProductsInShoppingCart() throws InterruptedException {
+//        Thread.sleep(2000);
+        wait.until(ExpectedConditions.elementToBeClickable(By.className("product-name")));
+        return webDriver.findElement(By.className("product-name")).getText();
+    }
 }

@@ -1,6 +1,7 @@
 package smart4aviation;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -19,6 +20,7 @@ public class MainClass {
 
  WebDriver webDriver = new ChromeDriver();
         webDriver.get("http://demo.nopcommerce.com");
+        webDriver.manage().window().setSize(new Dimension(600,80));
 //        webDriver.get("http://demo.nopcommerce.com/cart");
 //        rejestracja
 //                webDriver.findElement(By.className("ico-goToRegistration")).click();
@@ -33,15 +35,17 @@ public class MainClass {
 //        Thread.sleep(10000);
 
 //        Szukanie w searchbox
-        webDriver.findElement(By.id("small-searchterms")).sendKeys("HTC One Mini Blue");
-        webDriver.findElement(By.className("button-1")).click();
-        new SearchResultPage(webDriver).getItem("HTC One Mini Blue");
-        Thread.sleep(1000);
-        webDriver.findElement(By.partialLinkText("HTC One Mini Blue")).click();
+//        webDriver.findElement(By.id("small-searchterms")).sendKeys("HTC One Mini Blue");
+//        webDriver.findElement(By.className("button-1")).click();
+//        new SearchResultPage(webDriver).getItem("HTC One Mini Blue");
+//        Thread.sleep(1000);
+//        webDriver.findElement(By.partialLinkText("HTC One Mini Blue")).click();
 //        Thread.sleep(10000);
-        Thread.sleep(100);
-        webDriver.findElement(By.className("product-box-add-to-cart-button")).click();
-        System.out.println("koniec main");
+//        Thread.sleep(100);
+//        webDriver.findElement(By.className("product-box-add-to-cart-button")).click();
+       String welcomeToStore = webDriver.findElement(By.xpath("html/body/div[5]/div[3]/div/div/div/div/div[2]/div[1]/h2")).getText();
+        System.out.println(welcomeToStore);
+//        System.out.println("koniec main");
 
     }
 }

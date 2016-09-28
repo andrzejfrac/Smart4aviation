@@ -1,5 +1,6 @@
 package smart4aviation;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -27,6 +28,9 @@ public class RegistrationPage {
 //        Thread.sleep(500);
         wait.until(ExpectedConditions.elementToBeClickable(By.className("button-1")));
         webDriver.findElement(By.className("button-1")).click();
+        wait.until(ExpectedConditions.alertIsPresent()); //elementToBeClickable(By.className("product-box-add-to-cart-button")));
+        Alert alert = webDriver.switchTo().alert();
+        alert.accept();
         System.out.println("koniec goToRegistration");
         return homePage;
     }
