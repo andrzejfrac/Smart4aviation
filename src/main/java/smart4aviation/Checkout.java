@@ -62,7 +62,7 @@ public class Checkout {
         return this;
     }
     public String getFinalConfimationMessage(){
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.className("title")));
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("html/body/div[5]/div[3]/div/div/div/div[2]/div/div[1]/strong")));
         return webDriver.findElement(By.xpath("html/body/div[5]/div[3]/div/div/div/div[2]/div/div[1]/strong")).getText();
 
     }

@@ -1,9 +1,17 @@
 package smart4aviation;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
+
+import java.io.File;
+import java.io.IOException;
 
 public class SearchResultPage {
     private WebDriver webDriver;
@@ -22,6 +30,9 @@ public class SearchResultPage {
 //        Thread.sleep(1000);
         wait.until(ExpectedConditions.elementToBeClickable(By.className("product-box-add-to-cart-button")));
         webDriver.findElement(By.className("product-box-add-to-cart-button")).click();
+//        Thread.sleep(1000); potrzebuje do IE
+//        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='bar-notification']/span")));
+//        webDriver.findElement(By.xpath(".//*[@id='bar-notification']/span")).click();
         System.out.println("gettingItem ends");
         return this;
     }

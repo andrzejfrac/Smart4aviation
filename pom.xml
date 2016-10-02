@@ -9,6 +9,10 @@
     <version>1.0-SNAPSHOT</version>
     <properties>
         <suiteXmlFile>src/main/resources/testing.xml</suiteXmlFile>
+        <browser>chrome</browser>
+        <webdriver.chrome>C:\SeleniumTestNG\src\main\resources\chromedriver.exe</webdriver.chrome>
+        <webdriver.ie>src\main\resources\IEDriverServer.exe</webdriver.ie>
+
 
     </properties>
 
@@ -22,7 +26,7 @@
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>2.45.0</version>
+            <version>2.53.0</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.testng/testng -->
@@ -43,6 +47,18 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
+        <!-- <dependency>
+             <groupId>io.github.bonigarcia</groupId>
+             <artifactId>webdrivermanager</artifactId>
+             <version>1.4.9</version>
+             ChromeDriverManager.getInstance().setup();
+ InternetExplorerDriverManager.getInstance().setup();
+ OperaDriverManager.getInstance().setup();
+ EdgeDriverManager.getInstance().setup();
+ PhantomJsDriverManager.getInstance().setup();
+ MarionetteDriverManager.getInstance().setup();
+         </dependency> -->
 
     </dependencies>
     <build>
@@ -72,23 +88,29 @@
                     </suiteXmlFiles>
                     <testFailureIgnore>true</testFailureIgnore>
                     <!--<properties>-->
-                        <!--<property>-->
-                            <!--<name>usedefaultlisteners</name>-->
-                            <!--<value>false</value>-->
-                        <!--</property>-->
-                        <!--<property>-->
-                            <!--<name>listener</name>-->
-                            <!--<value>org.uncommons.reportng.HTMLReporter, org.uncommons.reportng.JUnitXMLReporter</value>-->
-                        <!--</property>-->
+                    <!--<property>-->
+                    <!--<name>usedefaultlisteners</name>-->
+                    <!--<value>false</value>-->
+                    <!--</property>-->
+                    <!--<property>-->
+                    <!--<name>listener</name>-->
+                    <!--<value>org.uncommons.reportng.HTMLReporter, org.uncommons.reportng.JUnitXMLReporter</value>-->
+                    <!--</property>-->
                     <!--</properties>-->
                     <!--<workingDirectory>target/</workingDirectory>-->
+
+                    <systemPropertyVariables>
+                        <webdriver.chrome.driver>${webdriver.chrome}</webdriver.chrome.driver>
+                        <webdriver.ie.driver>${webdriver.ie}</webdriver.ie.driver>
+                        <driver>${browser}</driver>
+                    </systemPropertyVariables>
+
                 </configuration>
             </plugin>
 
         </plugins>
 
     </build>
-
 
 
 </project>

@@ -1,17 +1,24 @@
 package smart4aviation.tests;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.Parameters;
-import org.testng.annotations.Test;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testng.ITestResult;
+import org.testng.annotations.*;
 import smart4aviation.Checkout;
 import smart4aviation.HomePage;
 import smart4aviation.SearchResultPage;
 import smart4aviation.ShoppingCart;
+import smart4aviation.utilities.BrowserFactory;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -30,15 +37,22 @@ public class TestingMainClass {
 
     @BeforeSuite(groups = {"include-test-one"})
     @Parameters({"URLAddress","Dimensions"})
-    public void setUp(String addres, String dimensions) throws InterruptedException {
+    public void setUp(String addres, String dimensions) throws InterruptedException, IOException {
         int xDim = Integer.parseInt(dimensions.split(",")[0]);
         int yDim = Integer.parseInt(dimensions.split(",")[1]);
         System.out.println("TestinMainClas setup runs ");
         System.out.println(Integer.parseInt(dimensions.split(",")[0]));
+        String mvnDriver = System.getProperty("driver");
+        System.out.println("ddddddddddddddddrrrrrrrrrrrrrriiiiiver"+mvnDriver);
 
         System.out.println("Address z Parametru to : "+addres+" DrugiPraram "+dimensions);
-        System.setProperty("webdriver.chrome.driver", "C:\\SeleniumTestNG\\src\\main\\resources\\chromedriver.exe");
-        this.webDriver = new ChromeDriver();
+//        System.setProperty("webdriver.chrome.driver", "C:\\SeleniumTestNG\\src\\main\\resources\\chromedriver.exe");
+//        this.webDriver = new ChromeDriver();
+//        /////////////////////////////////
+       System.out.println( "Moj DDDDDDDDriver "+System.getProperty("driver"));
+//        System.setProperty("webdriver.ie.driver", "src\\main\\resources\\IEDriverServer.exe");
+//        webDriver=new InternetExplorerDriver();
+webDriver = BrowserFactory.getWebDriver(System.getProperty("driver"));
         webDriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         webDriver.manage().window().setSize(new Dimension(xDim,yDim));//   maximize();
 //        WebDriver augmentedDriver = new Augmenter().augment(webDriver);
@@ -53,7 +67,7 @@ public class TestingMainClass {
                 .openAddress()
                 .goToRegistration().register(userId, userId, userId + "@example.com", "6characters");
 //        System.out.println( "USER EMAIL ++++++++++"+home.getUserEmail());
-        assertEquals(home.getUserEmail(), userId + "@example.com", "Verifying USERID");
+        assertEquals(home.getUserEmail(), userId + "@example.comA", "Verifying USERID");
         System.out.println("REGISTRATIONPROCESSTEST  ends ");
 //        Thread.sleep(5000);
     }
@@ -112,6 +126,15 @@ public class TestingMainClass {
 //WebDriver augmentedDriver = new Augmenter().augment(driver);
 //    ((TakesScreenshot)augmentedDriver).getScreenshotAs(OutputType.FILE);
 //    }
+@AfterMethod(groups = {"include-test-one"})
+public void takeScreenShotOnFailure(ITestResult testResult) throws IOException {
+    System.out.println("takeScreenShotOnFailure  starts ");
+    if (testResult.getStatus() == ITestResult.FAILURE) {
+        System.out.println("FAILURRRRRRRE "+testResult.getStatus());
+        File scrFile = ((TakesScreenshot) webDriver).getScreenshotAs(OutputType.FILE);
+        FileUtils.copyFile(scrFile, new File("\\Smart4Aviation\\target\\surefire-reports\\Smart4Aviation\\testScreenShot.jpg"));
+    }
+}
 
     @AfterSuite(groups = {"include-test-one"})
     public void tearDown() {
