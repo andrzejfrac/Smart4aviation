@@ -1,19 +1,13 @@
 package smart4aviation;
 
-import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
-
-import java.io.File;
-import java.io.IOException;
 
 public class SearchResultPage {
+    private static final String PRODUCT_BOX_ADD_TO_CART_BUTTON = "product-box-add-to-cart-button";
+    private static final String CART_LABEL = "cart-label";
     private WebDriver webDriver;
     private WebDriverWait wait;
 
@@ -24,12 +18,10 @@ public class SearchResultPage {
 
     public SearchResultPage getItem(String item) throws InterruptedException {
         System.out.println("gettingItem starts");
-//        Thread.sleep(1000);
         wait.until(ExpectedConditions.elementToBeClickable(By.linkText(item)));
         webDriver.findElement(By.linkText(item)).click();
-//        Thread.sleep(1000);
-        wait.until(ExpectedConditions.elementToBeClickable(By.className("product-box-add-to-cart-button")));
-        webDriver.findElement(By.className("product-box-add-to-cart-button")).click();
+        wait.until(ExpectedConditions.elementToBeClickable(By.className(PRODUCT_BOX_ADD_TO_CART_BUTTON)));
+        webDriver.findElement(By.className(PRODUCT_BOX_ADD_TO_CART_BUTTON)).click();
 //        Thread.sleep(1000); potrzebuje do IE
 //        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='bar-notification']/span")));
 //        webDriver.findElement(By.xpath(".//*[@id='bar-notification']/span")).click();
@@ -39,7 +31,7 @@ public class SearchResultPage {
 
     public ShoppingCart navigateToCart() {
         System.out.println("navigating to cart starts ");
-        webDriver.findElement(By.className("cart-label")).click();
+        webDriver.findElement(By.className(CART_LABEL)).click();
         System.out.println("navigating to cart ends");
         return new ShoppingCart(webDriver);
     }

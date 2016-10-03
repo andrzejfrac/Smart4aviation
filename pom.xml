@@ -12,11 +12,8 @@
         <browser>chrome</browser>
         <webdriver.chrome>C:\SeleniumTestNG\src\main\resources\chromedriver.exe</webdriver.chrome>
         <webdriver.ie>src\main\resources\IEDriverServer.exe</webdriver.ie>
-        <resolution>1200:900</resolution>
-
-
+        <resolution>1600:900</resolution>
     </properties>
-
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-chrome-driver -->
         <dependency>
@@ -29,7 +26,6 @@
             <artifactId>selenium-java</artifactId>
             <version>2.53.0</version>
         </dependency>
-
         <!-- https://mvnrepository.com/artifact/org.testng/testng -->
         <dependency>
             <groupId>org.testng</groupId>
@@ -48,26 +44,10 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
-        <!-- <dependency>
-             <groupId>io.github.bonigarcia</groupId>
-             <artifactId>webdrivermanager</artifactId>
-             <version>1.4.9</version>
-             ChromeDriverManager.getInstance().setup();
- InternetExplorerDriverManager.getInstance().setup();
- OperaDriverManager.getInstance().setup();
- EdgeDriverManager.getInstance().setup();
- PhantomJsDriverManager.getInstance().setup();
- MarionetteDriverManager.getInstance().setup();
-         </dependency> -->
-
     </dependencies>
     <build>
-
         <plugins>
-
             <plugin>
-
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.0</version>
@@ -77,42 +57,23 @@
                     <target>1.6</target>
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.17</version>
                 <configuration>
-
                     <suiteXmlFiles>
                         <suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
                     </suiteXmlFiles>
                     <testFailureIgnore>true</testFailureIgnore>
-                    <!--<properties>-->
-                    <!--<property>-->
-                    <!--<name>usedefaultlisteners</name>-->
-                    <!--<value>false</value>-->
-                    <!--</property>-->
-                    <!--<property>-->
-                    <!--<name>listener</name>-->
-                    <!--<value>org.uncommons.reportng.HTMLReporter, org.uncommons.reportng.JUnitXMLReporter</value>-->
-                    <!--</property>-->
-                    <!--</properties>-->
-                    <!--<workingDirectory>target/</workingDirectory>-->
-
                     <systemPropertyVariables>
                         <webdriver.chrome.driver>${webdriver.chrome}</webdriver.chrome.driver>
                         <webdriver.ie.driver>${webdriver.ie}</webdriver.ie.driver>
                         <driver>${browser}</driver>
                         <dimensions>${resolution}</dimensions>
                     </systemPropertyVariables>
-
                 </configuration>
             </plugin>
-
         </plugins>
-
     </build>
-
-
 </project>

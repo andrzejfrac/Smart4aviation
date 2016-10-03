@@ -6,6 +6,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ShoppingCart {
+    private static final String TERMSOFSERVICE = "termsofservice";
+    private static final String CHECKOUT = "checkout";
+    private static final String PRODUCT_NAME = "product-name";
     private WebDriver webDriver;
     private WebDriverWait wait;
 
@@ -16,16 +19,16 @@ public class ShoppingCart {
 
     public Checkout goToCheckout() throws InterruptedException {
         System.out.println(" goToCheckout selecting aggre terms starts ");
-//        Thread.sleep(2000);
-        wait.until(ExpectedConditions.elementToBeClickable(By.id("termsofservice")));
-        webDriver.findElement(By.id("termsofservice")).click();
-        webDriver.findElement(By.id("checkout")).click();
+        wait.until(ExpectedConditions.elementToBeClickable(By.id(TERMSOFSERVICE)));
+        webDriver.findElement(By.id(TERMSOFSERVICE)).click();
+        webDriver.findElement(By.id(CHECKOUT)).click();
         System.out.println("goToCheckout selecting aggre terms ends ");
         return new Checkout(webDriver);
     }
+
     public String getProductsInShoppingCart() throws InterruptedException {
         Thread.sleep(2000);// to czekanie ponizej cos nie dziala chyba
-        wait.until(ExpectedConditions.elementToBeClickable(By.className("product-name")));
-        return webDriver.findElement(By.className("product-name")).getText();
+        wait.until(ExpectedConditions.elementToBeClickable(By.className(PRODUCT_NAME)));
+        return webDriver.findElement(By.className(PRODUCT_NAME)).getText();
     }
 }

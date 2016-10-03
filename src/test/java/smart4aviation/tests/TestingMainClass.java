@@ -24,88 +24,64 @@ import static org.testng.Assert.assertEquals;
  * Created by Andy on 9/17/2016.
  */
 public class TestingMainClass {
+    private static final String PRODUCT_TO_LOOK_FOR = "HTC One Mini Blue";
     private WebDriver webDriver;
     private HomePage home;
     private SearchResultPage searchResultPage;
     private Checkout checkout;
     private ShoppingCart shoppingCart;
     private static String userId = UUID.randomUUID().toString();
+    private static String ADDRESS_URL;
 
-    @BeforeSuite(groups = {"include-test-one"})
+    @BeforeSuite(groups = {"important"})
     @Parameters({"URLAddress"})
-    public void setUp(String addres) throws InterruptedException, IOException {
+    public void setUp(String addressUrl) throws InterruptedException, IOException {
+        ADDRESS_URL = addressUrl;
+        System.out.println("TestinMainClas setup runs ");
         String dimensions = System.getProperty("dimensions");
         int xDim = Integer.parseInt(dimensions.split(":")[0]);
         int yDim = Integer.parseInt(dimensions.split(":")[1]);
-        System.out.println("TestinMainClas setup runs ");
-        System.out.println(Integer.parseInt(dimensions.split(":")[0]));
-        String mvnDriver = System.getProperty("driver");
-        System.out.println("Moj DDDDDDDDriver " + System.getProperty("driver"));
+        System.out.println("Current driver is  " + System.getProperty("driver"));
         webDriver = BrowserFactory.getWebDriver(System.getProperty("driver"));
         webDriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-        webDriver.manage().window().setSize(new Dimension(xDim, yDim));//   maximize();
-//        WebDriver augmentedDriver = new Augmenter().augment(webDriver);
-//    ((TakesScreenshot)augmentedDriver).getScreenshotAs(OutputType.FILE);
+        webDriver.manage().window().setSize(new Dimension(xDim, yDim));
         System.out.println("TestinMainClas setup ends ");
     }
 
-    @Test(groups = {"include-test-one"})
+    @Test(groups = {"important"})
     public void registrationProcessTest() throws InterruptedException {
         System.out.println("REGISTRATIONPROCESSTEST starts ");
-        home = new HomePage(webDriver)
-                .openAddress()
-                .goToRegistration().register(userId, userId, userId + "@example.com", "6characters");
-//        System.out.println( "USER EMAIL ++++++++++"+home.getUserEmail());
+        home = new HomePage(webDriver).openAddress(ADDRESS_URL).goToRegistration().
+                register(userId, userId, userId + "@example.com", "6characters");
         assertEquals(home.getUserEmail(), userId + "@example.com", "Verifying USERID");
         System.out.println("REGISTRATIONPROCESSTEST  ends ");
-//        Thread.sleep(5000);
     }
 
-    @Test(groups = {"include-test-one"}, dependsOnMethods = {"registrationProcessTest"})
+    @Test(groups = {"important"}, dependsOnMethods = {"registrationProcessTest"})
     public void searchForProduct() throws InterruptedException {
         System.out.println("SEARCHFORPRODUCT  Starts ");
         System.out.println("TestinMainClas searchForProduct starts ");
-        SearchResultPage searchResultPage = home.sendToSearchBox("HTC One Mini Blue");
-
-        shoppingCart = searchResultPage.getItem("HTC One Mini Blue").navigateToCart();
-        System.out.println("+++++to jest w koszyku " + shoppingCart.getProductsInShoppingCart());
+        SearchResultPage searchResultPage = home.sendToSearchBox(PRODUCT_TO_LOOK_FOR);
+        shoppingCart = searchResultPage.getItem(PRODUCT_TO_LOOK_FOR).navigateToCart();
+        System.out.println("Product in the cart  " + shoppingCart.getProductsInShoppingCart());
 //        assertEquals(shoppingCart.getProductsInShoppingCart().toLowerCase(),"HTC One Mini Blue".toLowerCase(),
 //                "Verifying HTC One Mini Blue is in the cart");
         System.out.println("SEARCHFORPRODUCT  ends ");
-
     }
 
-    @Test(groups = {"include-test-one"}, dependsOnMethods = {"searchForProduct"})
+    @Test(groups = {"important"}, dependsOnMethods = {"searchForProduct"})
     public void checkoutProcessTest() throws InterruptedException {
         System.out.println("CHECKOUTPROCESS  starts ");
         Thread.sleep(1000);
         checkout = shoppingCart.goToCheckout();
-        checkout.billingAddress().shippingMethod().paymentMethodAndInformation().
-                paymentConfirmation();
-
-        System.out.println("Final Confirmation Notification is present " + checkout.getFinalConfimationMessage());
+        checkout.billingAddress().shippingMethod().paymentMethodAndInformation().paymentConfirmation();
         assertEquals(checkout.getFinalConfimationMessage().toLowerCase(), "Your order has been successfully processed!".toLowerCase(),
                 "Final Confirmation message is displayed");
-        System.out.println("TestinMainClas searchForProduct ends ");
         System.out.println("CHECKOUTPROCESS  ends ");
         Thread.sleep(1000);
     }
 
-    //
-//    @Test(groups = {"include-test-one"})
-//    public void addToCartTest() throws InterruptedException {
-//        System.out.println("addToCart runs ");
-//        NavigationMenu nv = home.getNavigationMenu();
-//        nv.setDropDownBox("Books");
-//        SearchResultPage searchResultPage = nv.sendToSearch("Selenium");
-//        String firstResultTitle = searchResultPage.getFirstResultTitle();
-//        ProductDetailsPage productDetailsPage = searchResultPage.clickFirstResult();
-//        CheckOutPage checkOutPage = productDetailsPage.addToCart();
-//        assert (checkOutPage.success().contentEquals("To jest ju koniec"));
-//WebDriver augmentedDriver = new Augmenter().augment(driver);
-//    ((TakesScreenshot)augmentedDriver).getScreenshotAs(OutputType.FILE);
-//    }
-    @AfterMethod(groups = {"include-test-one"})
+    @AfterMethod(groups = {"important"})
     public void takeScreenShotOnFailure(ITestResult testResult) throws IOException {
         if (testResult.getStatus() == ITestResult.FAILURE) {
             File scrFile = ((TakesScreenshot) webDriver).getScreenshotAs(OutputType.FILE);
@@ -113,7 +89,7 @@ public class TestingMainClass {
         }
     }
 
-    @AfterSuite(groups = {"include-test-one"})
+    @AfterSuite(groups = {"important"})
     public void tearDown() {
         System.out.println("TearDown runs ");
         webDriver.quit();
