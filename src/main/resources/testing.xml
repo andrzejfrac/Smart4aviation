@@ -1,6 +1,5 @@
 <suite name="Smart4Aviation" verbose="1">
     <parameter name="URLAddress" value="http://demo.nopcommerce.com" />
-    <parameter name="Dimensions" value="1600,900" />
     <test name="Group of group Test">
         <groups>
             <define name="include-group">
