@@ -31,6 +31,7 @@ public class SearchResultPage {
 
     public ShoppingCart navigateToCart() {
         System.out.println("navigating to cart starts ");
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className(CART_LABEL)));
         webDriver.findElement(By.className(CART_LABEL)).click();
         System.out.println("navigating to cart ends");
         return new ShoppingCart(webDriver);

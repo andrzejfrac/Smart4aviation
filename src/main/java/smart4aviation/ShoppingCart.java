@@ -27,7 +27,7 @@ public class ShoppingCart {
     }
 
     public String getProductsInShoppingCart() throws InterruptedException {
-        Thread.sleep(2000);// to czekanie ponizej cos nie dziala chyba
+//        Thread.sleep(2000);// to czekanie ponizej cos nie dziala chyba
         wait.until(ExpectedConditions.elementToBeClickable(By.className(PRODUCT_NAME)));
         return webDriver.findElement(By.className(PRODUCT_NAME)).getText();
     }

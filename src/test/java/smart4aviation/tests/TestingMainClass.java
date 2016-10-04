@@ -64,15 +64,15 @@ public class TestingMainClass {
         SearchResultPage searchResultPage = home.sendToSearchBox(PRODUCT_TO_LOOK_FOR);
         shoppingCart = searchResultPage.getItem(PRODUCT_TO_LOOK_FOR).navigateToCart();
         System.out.println("Product in the cart  " + shoppingCart.getProductsInShoppingCart());
-//        assertEquals(shoppingCart.getProductsInShoppingCart().toLowerCase(),"HTC One Mini Blue".toLowerCase(),
-//                "Verifying HTC One Mini Blue is in the cart");
+        assertEquals(shoppingCart.getProductsInShoppingCart().toLowerCase(),PRODUCT_TO_LOOK_FOR.toLowerCase(),
+                "Verifying HTC One Mini Blue is in the cart");
         System.out.println("SEARCHFORPRODUCT  ends ");
     }
 
     @Test(groups = {"important"}, dependsOnMethods = {"searchForProduct"})
     public void checkoutProcessTest() throws InterruptedException {
         System.out.println("CHECKOUTPROCESS  starts ");
-        Thread.sleep(1000);
+//        Thread.sleep(1000);
         checkout = shoppingCart.goToCheckout();
         checkout.billingAddress().shippingMethod().paymentMethodAndInformation().paymentConfirmation();
         assertEquals(checkout.getFinalConfimationMessage().toLowerCase(), "Your order has been successfully processed!".toLowerCase(),
