@@ -1,9 +1,6 @@
 package smart4aviation.tests;
 
-import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.Dimension;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
@@ -13,10 +10,9 @@ import smart4aviation.SearchResultPage;
 import smart4aviation.ShoppingCart;
 import smart4aviation.utilities.BrowserFactory;
 import smart4aviation.utilities.TestUser;
+import smart4aviation.utilities.Utilities;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.assertEquals;
@@ -52,9 +48,9 @@ public class TestingMainClass {
     @Test(groups = {"important"})
     public void registrationProcessTest() throws InterruptedException {
         System.out.println("REGISTRATIONPROCESSTEST starts ");
-        TestUser testUser= new TestUser();
+        TestUser testUser = new TestUser();
         home = new HomePage(webDriver).openAddress(ADDRESS_URL).goToRegistration().register(testUser);
-        assertNotEquals(home.getUserEmail(), testUser.getEmail(), "Verifying registration");
+        assertEquals(home.getUserEmail(), testUser.getEmail(), "Verifying registration");
         System.out.println("REGISTRATIONPROCESSTEST  ends ");
     }
 
@@ -83,13 +79,8 @@ public class TestingMainClass {
 
     @AfterMethod(groups = {"important"})
     public void takeScreenShotOnFailure(ITestResult testResult) throws IOException {
-        System.out.println(System.getProperty("user.dir")+"\\target\\surefire-reports\\Smart4Aviation\\testScreenShot.jpg");
-
         if (testResult.getStatus() == ITestResult.FAILURE) {
-            File scrFile = ((TakesScreenshot) webDriver).getScreenshotAs(OutputType.FILE);
-            FileUtils.copyFile(scrFile, new File(System.getProperty("user.dir")+"\\target\\surefire-reports\\Smart4Aviation\\testScreenShot.jpg"));
-            System.out.println("SCREEN SHOT  ENDS ");
-
+            Utilities.takeScreenShot(webDriver);
         }
     }
 
