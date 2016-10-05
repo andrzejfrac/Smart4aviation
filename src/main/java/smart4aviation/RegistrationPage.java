@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import smart4aviation.utilities.TestUser;
 
 public class RegistrationPage {
     public static final String FIRST_NAME = "FirstName";
@@ -24,13 +25,13 @@ public class RegistrationPage {
         this.wait = new WebDriverWait(webDriver, 4000);
     }
 
-    public HomePage register(String firstName, String lastName, String email, String password) throws InterruptedException {
+    public HomePage register(TestUser testUser) throws InterruptedException {
         System.out.println("poczatek goToRegistration");
-        webDriver.findElement(By.id(FIRST_NAME)).sendKeys(firstName);
-        webDriver.findElement(By.id(LAST_NAME)).sendKeys(lastName);
-        webDriver.findElement(By.id(EMAIL)).sendKeys(email);
-        webDriver.findElement(By.id(PASSWORD)).sendKeys(password);
-        webDriver.findElement(By.id(CONFIRM_PASSWORD)).sendKeys(password);
+        webDriver.findElement(By.id(FIRST_NAME)).sendKeys(testUser.getFirstName());
+        webDriver.findElement(By.id(LAST_NAME)).sendKeys(testUser.getLastName());
+        webDriver.findElement(By.id(EMAIL)).sendKeys(testUser.getEmail());
+        webDriver.findElement(By.id(PASSWORD)).sendKeys(testUser.getPassword());
+        webDriver.findElement(By.id(CONFIRM_PASSWORD)).sendKeys(testUser.getPassword());
         webDriver.findElement(By.id(REGISTER_BUTTON)).click();
         wait.until(ExpectedConditions.elementToBeClickable(By.className(rEGISTER_NEXT_STEP_BUTTON)));
         webDriver.findElement(By.className(rEGISTER_NEXT_STEP_BUTTON)).click();
