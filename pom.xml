@@ -10,8 +10,9 @@
     <properties>
         <suiteXmlFile>src/main/resources/testing.xml</suiteXmlFile>
         <browser>chrome</browser>
-        <webdriver.chrome>C:\SeleniumTestNG\src\main\resources\chromedriver.exe</webdriver.chrome>
+        <webdriver.chrome>src\main\resources\chromedriver.exe</webdriver.chrome>
         <webdriver.ie>src\main\resources\IEDriverServer.exe</webdriver.ie>
+        <webdriver.firefox>src\main\resources\geckodriver.exe</webdriver.firefox>
         <resolution>1600:900</resolution>
     </properties>
     <dependencies>
@@ -69,6 +70,7 @@
                     <systemPropertyVariables>
                         <webdriver.chrome.driver>${webdriver.chrome}</webdriver.chrome.driver>
                         <webdriver.ie.driver>${webdriver.ie}</webdriver.ie.driver>
+                        <webdriver.gecko.driver>${webdriver.firefox}</webdriver.gecko.driver>
                         <driver>${browser}</driver>
                         <dimensions>${resolution}</dimensions>
                     </systemPropertyVariables>

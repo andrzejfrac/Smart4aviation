@@ -37,8 +37,8 @@ public class TestingMainClass {
         ADDRESS_URL = addressUrl;
         System.out.println("TestinMainClas setup runs ");
         String dimensions = System.getProperty("dimensions");
-        System.out.println("Current driver is  " + System.getProperty("driver"));
-        webDriver = BrowserFactory.getWebDriver(System.getProperty("driver"));
+        System.out.println("Current driver is  " + System.getProperty("browser"));
+        webDriver = BrowserFactory.getWebDriver(System.getProperty("browser"));
         webDriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         webDriver.manage().window().setSize(
                 new Dimension(Integer.parseInt(dimensions.split(":")[0]), Integer.parseInt(dimensions.split(":")[1])));
