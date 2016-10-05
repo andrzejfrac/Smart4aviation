@@ -83,11 +83,11 @@ public class TestingMainClass {
 
     @AfterMethod(groups = {"important"})
     public void takeScreenShotOnFailure(ITestResult testResult) throws IOException {
-        System.out.println("SCREEN SHOT  START ");
+        System.out.println(System.getProperty("user.dir")+"\\target\\surefire-reports\\Smart4Aviation\\testScreenShot.jpg");
 
         if (testResult.getStatus() == ITestResult.FAILURE) {
             File scrFile = ((TakesScreenshot) webDriver).getScreenshotAs(OutputType.FILE);
-            FileUtils.copyFile(scrFile, new File("\\Smart4Aviation\\target\\surefire-reports\\Smart4Aviation\\testScreenShot.jpg"));
+            FileUtils.copyFile(scrFile, new File(System.getProperty("user.dir")+"\\target\\surefire-reports\\Smart4Aviation\\testScreenShot.jpg"));
             System.out.println("SCREEN SHOT  ENDS ");
 
         }
