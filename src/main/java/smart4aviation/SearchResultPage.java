@@ -16,8 +16,7 @@ public class SearchResultPage {
         this.wait = new WebDriverWait(webDriver, 4000);
     }
 
-    public SearchResultPage getItem(String item) throws InterruptedException {
-        System.out.println("gettingItem starts");
+    public SearchResultPage getItem(String item) {
         wait.until(ExpectedConditions.elementToBeClickable(By.linkText(item)));
         webDriver.findElement(By.linkText(item)).click();
         wait.until(ExpectedConditions.elementToBeClickable(By.className(PRODUCT_BOX_ADD_TO_CART_BUTTON)));
@@ -25,15 +24,12 @@ public class SearchResultPage {
 //        Thread.sleep(1000); potrzebuje do IE
 //        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='bar-notification']/span")));
 //        webDriver.findElement(By.xpath(".//*[@id='bar-notification']/span")).click();
-        System.out.println("gettingItem ends");
         return this;
     }
 
     public ShoppingCart navigateToCart() {
-        System.out.println("navigating to cart starts ");
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.className(CART_LABEL)));
         webDriver.findElement(By.className(CART_LABEL)).click();
-        System.out.println("navigating to cart ends");
         return new ShoppingCart(webDriver);
     }
 }

@@ -30,8 +30,7 @@ public class Checkout {
         this.wait = new WebDriverWait(webDriver, 4000);
     }
 
-    public Checkout billingAddress() throws InterruptedException {
-        System.out.println("billingAddress starts");
+    public Checkout billingAddress() {
         new Select(webDriver.findElement(By.id(BILLING_NEW_ADDRESS_COUNTRY_ID)))
                 .selectByVisibleText("United States");
         new Select(webDriver.findElement(By.id(BILLING_NEW_ADDRESS_STATE_PROVINCE_ID)))
@@ -41,44 +40,31 @@ public class Checkout {
         webDriver.findElement(By.id(BILLING_NEW_ADDRESS_ZIP_POSTAL_CODE)).sendKeys("BillingNewAddress_ZipPostalCode");
         webDriver.findElement(By.id(BILLING_NEW_ADDRESS_PHONE_NUMBER)).sendKeys("BillingNewAddress_PhoneNumber");
         webDriver.findElement(By.className(NEW_ADDRESS_NEXT_STEP_BUTTON)).click();
-        System.out.println("billingAddress ends");
         return this;
     }
 
-    public Checkout shippingMethod() throws InterruptedException {
-        System.out.println("shippingMethod starts");
-//        Thread.sleep(4000);
+    public Checkout shippingMethod() {
         wait.until(ExpectedConditions.elementToBeClickable(By.className(SHIPPING_METHOD_NEXT_STEP_BUTTON)));
         webDriver.findElement(By.className(SHIPPING_METHOD_NEXT_STEP_BUTTON1)).click();
-        System.out.println("shippingMethod ends");
         return this;
     }
 
-    public Checkout paymentMethodAndInformation() throws InterruptedException {
-        System.out.println("paymentMethodAndInformation starts");
-//        Thread.sleep(4000);
+    public Checkout paymentMethodAndInformation() {
         wait.until(ExpectedConditions.elementToBeClickable(By.className(PAYMENT_METHOD_NEXT_STEP_BUTTON)));
         webDriver.findElement(By.className(PAYMENT_METHOD_NEXT_STEP_BUTTON1)).click();
-//        Thread.sleep(4000);
         wait.until(ExpectedConditions.elementToBeClickable(By.className(PAYMENT_INFO_NEXT_STEP_BUTTON)));
         webDriver.findElement(By.className(PAYMENT_INFO_NEXT_STEP_BUTTON1)).click();
-        System.out.println("paymentMethodAndInformation ends");
         return this;
     }
 
-    public Checkout paymentConfirmation() throws InterruptedException {
-        System.out.println("paymentConfirmation starts");
-//        Thread.sleep(4000);
+    public Checkout paymentConfirmation() {
         wait.until(ExpectedConditions.elementToBeClickable(CONFIRM_ORDER_NEXT_STEP_BUTTON));
         webDriver.findElement(CONFIRM_ORDER_NEXT_STEP_BUTTON).click();
-//        Thread.sleep(4000);
-        System.out.println("paymentConfirmation ends");
         return this;
     }
 
     public String getFinalConfimationMessage() {
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(THANK_YOU)));
         return webDriver.findElement(By.xpath(THANK_YOU)).getText();
-
     }
 }

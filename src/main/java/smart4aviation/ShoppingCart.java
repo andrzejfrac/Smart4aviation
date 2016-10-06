@@ -17,17 +17,14 @@ public class ShoppingCart {
         this.wait = new WebDriverWait(webDriver, 4000);
     }
 
-    public Checkout goToCheckout() throws InterruptedException {
-        System.out.println(" goToCheckout selecting aggre terms starts ");
+    public Checkout goToCheckout() {
         wait.until(ExpectedConditions.elementToBeClickable(By.id(TERMSOFSERVICE)));
         webDriver.findElement(By.id(TERMSOFSERVICE)).click();
         webDriver.findElement(By.id(CHECKOUT)).click();
-        System.out.println("goToCheckout selecting aggre terms ends ");
         return new Checkout(webDriver);
     }
 
-    public String getProductsInShoppingCart() throws InterruptedException {
-//        Thread.sleep(2000);// to czekanie ponizej cos nie dziala chyba
+    public String getProductsInShoppingCart() {
         wait.until(ExpectedConditions.elementToBeClickable(By.className(PRODUCT_NAME)));
         return webDriver.findElement(By.className(PRODUCT_NAME)).getText();
     }

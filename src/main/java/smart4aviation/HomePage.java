@@ -14,7 +14,6 @@ public class HomePage {
     private static final String SEARCH_BUTTON = "button-1";
     private static final String ICO_ACCOUNT = "ico-account";
     private WebDriver webDriver;
-    private static final String ADDRESS = "http://demo.nopcommerce.com";
     private WebDriverWait wait;
 
     public HomePage(WebDriver webDriver) {
@@ -22,20 +21,16 @@ public class HomePage {
         this.wait = new WebDriverWait(webDriver, 4000);
     }
 
-    public HomePage openAddress(String addresUrl) {
-        System.out.println("openAddres starts");
-        webDriver.get(ADDRESS);
-        System.out.println("openAddres ends");
+    public HomePage openAddress(String addressUrl) {
+        webDriver.get(addressUrl);
         return this;
     }
 
     public void login(String email, String password) {
-        System.out.println("login starts");
         webDriver.findElement(By.className(ICO_LOGIN)).click();
         webDriver.findElement(By.className(EMAIL)).sendKeys(email);
         webDriver.findElement(By.className(PASSWORD)).sendKeys(PASSWORD);
         webDriver.findElement(By.className(LOGIN_BUTTON)).click();
-        System.out.println("login ends");
     }
 
     public RegistrationPage goToRegistration() {
@@ -43,17 +38,13 @@ public class HomePage {
         return new RegistrationPage(webDriver, this);
     }
 
-    public SearchResultPage sendToSearchBox(String keys) throws InterruptedException {
-        System.out.println("HomePage sendToSearchBox starts");
+    public SearchResultPage sendToSearchBox(String keys) {
         webDriver.findElement(By.className(SEARCH_BOX_TEXT)).sendKeys(keys);
         webDriver.findElement(By.className(SEARCH_BUTTON)).click();
-//        Thread.sleep(100);
-//        webDriver.findElement(By.className("product-box-add-to-cart-button")).click();
-        System.out.println("HomePage sendToSearchBox ends");
         return new SearchResultPage(webDriver);
     }
 
-    public String getUserEmail() throws InterruptedException {
+    public String getUserEmail() {
         return webDriver.findElement(By.className(ICO_ACCOUNT)).getText();
     }
 }

@@ -1,6 +1,5 @@
 package smart4aviation;
 
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -8,13 +7,13 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import smart4aviation.utilities.TestUser;
 
 public class RegistrationPage {
-    public static final String FIRST_NAME = "FirstName";
-    public static final String LAST_NAME = "LastName";
-    public static final String EMAIL = "Email";
-    public static final String PASSWORD = "Password";
-    public static final String CONFIRM_PASSWORD = "ConfirmPassword";
-    public static final String REGISTER_BUTTON = "register-button";
-    public static final String rEGISTER_NEXT_STEP_BUTTON = "button-1";
+    private static final String FIRST_NAME = "FirstName";
+    private static final String LAST_NAME = "LastName";
+    private static final String EMAIL = "Email";
+    private static final String PASSWORD = "Password";
+    private static final String CONFIRM_PASSWORD = "ConfirmPassword";
+    private static final String REGISTER_BUTTON = "register-button";
+    private static final String rEGISTER_NEXT_STEP_BUTTON = "button-1";
     private WebDriver webDriver;
     private HomePage homePage;
     private WebDriverWait wait;
@@ -25,8 +24,7 @@ public class RegistrationPage {
         this.wait = new WebDriverWait(webDriver, 4000);
     }
 
-    public HomePage register(TestUser testUser) throws InterruptedException {
-        System.out.println("poczatek goToRegistration");
+    public HomePage register(TestUser testUser) {
         webDriver.findElement(By.id(FIRST_NAME)).sendKeys(testUser.getFirstName());
         webDriver.findElement(By.id(LAST_NAME)).sendKeys(testUser.getLastName());
         webDriver.findElement(By.id(EMAIL)).sendKeys(testUser.getEmail());
@@ -35,9 +33,8 @@ public class RegistrationPage {
         webDriver.findElement(By.id(REGISTER_BUTTON)).click();
         wait.until(ExpectedConditions.elementToBeClickable(By.className(rEGISTER_NEXT_STEP_BUTTON)));
         webDriver.findElement(By.className(rEGISTER_NEXT_STEP_BUTTON)).click();
-        wait.until(ExpectedConditions.alertIsPresent()); //button-1 register-next-step-buttonelementToBeClickable(By.className("product-box-add-to-cart-button")));
+        wait.until(ExpectedConditions.alertIsPresent());
         webDriver.switchTo().alert().accept();
-        System.out.println("koniec goToRegistration");
         return homePage;
     }
 }
