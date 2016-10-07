@@ -10,9 +10,9 @@
     <properties>
         <suiteXmlFile>src/main/resources/testing.xml</suiteXmlFile>
         <browser>chrome</browser>
-        <webdriver.chrome>"C:\\Smart4Aviation\\src\\main\\resources\\chromedriver.exe"</webdriver.chrome>
-        <webdriver.ie>\src\main\resources\IEDriverServer.exe</webdriver.ie>
-        <webdriver.firefox>\src\main\resources\geckodriver.exe</webdriver.firefox>
+        <webdriver.chrome>${project.basedir}/src/main/resources/chromedriver.exe</webdriver.chrome>
+        <webdriver.ie>${project.basedir}/src/main/resources/IEDriverServer.exe</webdriver.ie>
+        <webdriver.firefox>${project.basedir}/src/main/resources/geckodriver.exe</webdriver.firefox>
         <resolution>1600:900</resolution>
     </properties>
     <dependencies>
@@ -68,12 +68,11 @@
                     </suiteXmlFiles>
                     <testFailureIgnore>true</testFailureIgnore>
                     <systemPropertyVariables>
-                        <driver>chrome</driver>
-                        <propertyName>propertyValue</propertyName>
-                        <webdriver.chrome.driver>C:\\Smart4Aviation\\src\\main\\resources\\chromedriver.exe</webdriver.chrome.driver>
+                        <driver>${browser}</driver>
+                        <webdriver.chrome.driver>${webdriver.chrome}</webdriver.chrome.driver>
                         <webdriver.ie.driver>${webdriver.ie}</webdriver.ie.driver>
                         <webdriver.gecko.driver>${webdriver.firefox}</webdriver.gecko.driver>
-                        <dimensions>${resolution}</dimensions>
+                        <size>${resolution}</size>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>

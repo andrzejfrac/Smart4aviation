@@ -36,7 +36,7 @@ public class TestingMainClass {
     @Parameters({"URLAddress"})
     public void setUp(String addressUrl) {
         ADDRESS_URL = addressUrl;
-        String dimensions = System.getProperty("dimensions");
+        String dimensions = System.getProperty("size");
         System.out.println("Current driver is  " + System.getProperty("driver"));
         webDriver = BrowserFactory.getWebDriver(System.getProperty("driver"));
         webDriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -48,8 +48,10 @@ public class TestingMainClass {
 
     @Test(groups = {"important"})
     public void registrationProcessTest() {
-
-        home = new HomePage(webDriver).openAddress(ADDRESS_URL).goToRegistration().register(testUser);
+        home = new HomePage(webDriver)
+                .openAddress(ADDRESS_URL)
+                .goToRegistration()
+                .register(testUser);
         assertEquals(home.getUserEmail(), testUser.getEmail(), "Verifying registration");
     }
 
