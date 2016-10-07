@@ -7,6 +7,19 @@ public class TestUser {
     private String lastName=firstName;
     private String email=firstName+"@example.com";
     private String password="6characters";
+    private BillingAddress billingAddress;
+
+    public TestUser(BillingAddress billingAddress) {
+        this.billingAddress=billingAddress;
+    }
+
+    public BillingAddress getBillingAddress() {
+        return billingAddress;
+    }
+
+    public void setBillingAddress(BillingAddress billingAddress) {
+        this.billingAddress = billingAddress;
+    }
 
     public String getFirstName() {
         return firstName;

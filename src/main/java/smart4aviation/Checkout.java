@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import smart4aviation.utilities.TestUser;
 
 public class Checkout {
     private static final By CONFIRM_ORDER_NEXT_STEP_BUTTON = By.className("confirm-order-next-step-button");
@@ -30,15 +31,19 @@ public class Checkout {
         this.wait = new WebDriverWait(webDriver, 4000);
     }
 
-    public Checkout billingAddress() {
+    public Checkout setBillingAddress(TestUser testUser) {
         new Select(webDriver.findElement(By.id(BILLING_NEW_ADDRESS_COUNTRY_ID)))
                 .selectByVisibleText("United States");
         new Select(webDriver.findElement(By.id(BILLING_NEW_ADDRESS_STATE_PROVINCE_ID)))
                 .selectByVisibleText("New York");
-        webDriver.findElement(By.id(BILLING_NEW_ADDRESS_CITY)).sendKeys("BillingNewAddress_City");
-        webDriver.findElement(By.id(BILLING_NEW_ADDRESS_ADDRESS_1)).sendKeys("BillingNewAddress_Address1");
-        webDriver.findElement(By.id(BILLING_NEW_ADDRESS_ZIP_POSTAL_CODE)).sendKeys("BillingNewAddress_ZipPostalCode");
-        webDriver.findElement(By.id(BILLING_NEW_ADDRESS_PHONE_NUMBER)).sendKeys("BillingNewAddress_PhoneNumber");
+        webDriver.findElement(By.id(BILLING_NEW_ADDRESS_CITY))
+                .sendKeys(testUser.getBillingAddress().getCity());
+        webDriver.findElement(By.id(BILLING_NEW_ADDRESS_ADDRESS_1))
+                .sendKeys(testUser.getBillingAddress().getAddress1());
+        webDriver.findElement(By.id(BILLING_NEW_ADDRESS_ZIP_POSTAL_CODE))
+                .sendKeys(testUser.getBillingAddress().getZip());
+        webDriver.findElement(By.id(BILLING_NEW_ADDRESS_PHONE_NUMBER))
+                .sendKeys(testUser.getBillingAddress().getPhoneNumber());
         webDriver.findElement(By.className(NEW_ADDRESS_NEXT_STEP_BUTTON)).click();
         return this;
     }

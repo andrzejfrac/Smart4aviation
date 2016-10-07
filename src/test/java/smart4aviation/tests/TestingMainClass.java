@@ -8,6 +8,7 @@ import smart4aviation.Checkout;
 import smart4aviation.HomePage;
 import smart4aviation.SearchResultPage;
 import smart4aviation.ShoppingCart;
+import smart4aviation.utilities.BillingAddress;
 import smart4aviation.utilities.BrowserFactory;
 import smart4aviation.utilities.TestUser;
 import smart4aviation.utilities.Utilities;
@@ -28,6 +29,8 @@ public class TestingMainClass {
     private Checkout checkout;
     private ShoppingCart shoppingCart;
     private String ADDRESS_URL;
+    private BillingAddress billingAddress;
+    private TestUser testUser;
 
     @BeforeSuite(groups = {"important"})
     @Parameters({"URLAddress"})
@@ -39,11 +42,13 @@ public class TestingMainClass {
         webDriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         webDriver.manage().window().setSize(
                 new Dimension(Integer.parseInt(dimensions.split(":")[0]), Integer.parseInt(dimensions.split(":")[1])));
+        billingAddress = new BillingAddress("United States", "New York", "New York", "Lee", "10765", "123456789");
+        testUser = new TestUser(billingAddress);
     }
 
     @Test(groups = {"important"})
     public void registrationProcessTest() {
-        TestUser testUser = new TestUser();
+
         home = new HomePage(webDriver).openAddress(ADDRESS_URL).goToRegistration().register(testUser);
         assertEquals(home.getUserEmail(), testUser.getEmail(), "Verifying registration");
     }
@@ -59,7 +64,7 @@ public class TestingMainClass {
     @Test(groups = {"important"}, dependsOnMethods = {"searchForProduct"})
     public void checkoutProcessTest() {
         checkout = shoppingCart.goToCheckout();
-        checkout.billingAddress().shippingMethod().paymentMethodAndInformation().paymentConfirmation();
+        checkout.setBillingAddress(testUser).shippingMethod().paymentMethodAndInformation().paymentConfirmation();
         assertEquals(checkout.getFinalConfimationMessage().toLowerCase(), CONFIRMATION_MESSAGE.toLowerCase(),
                 "Final Confirmation message is displayed");
     }
