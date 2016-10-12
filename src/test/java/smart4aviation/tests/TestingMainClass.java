@@ -39,7 +39,9 @@ public class TestingMainClass {
         String dimensions = System.getProperty("size");
         System.out.println("Current driver is  " + System.getProperty("driver"));
         webDriver = BrowserFactory.getWebDriver(System.getProperty("driver"));
-        webDriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        webDriver.manage()
+                .timeouts()
+                .implicitlyWait(30, TimeUnit.SECONDS);
         webDriver.manage().window().setSize(
                 new Dimension(Integer.parseInt(dimensions.split(":")[0]), Integer.parseInt(dimensions.split(":")[1])));
         billingAddress = new BillingAddress("United States", "New York", "New York", "Lee", "10765", "123456789");
@@ -66,7 +68,9 @@ public class TestingMainClass {
     @Test(groups = {"important"}, dependsOnMethods = {"searchForProduct"})
     public void checkoutProcessTest() {
         checkout = shoppingCart.goToCheckout();
-        checkout.setBillingAddress(testUser).shippingMethod().paymentMethodAndInformation().paymentConfirmation();
+        checkout.setBillingAddress(testUser)
+                .shippingMethod().paymentMethodAndInformation()
+                .paymentConfirmation();
         assertEquals(checkout.getFinalConfimationMessage().toLowerCase(), CONFIRMATION_MESSAGE.toLowerCase(),
                 "Final Confirmation message is displayed");
     }

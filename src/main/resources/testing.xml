@@ -5,9 +5,6 @@
             <define name="include-group">
                 <include name="important" />
             </define>
-            <!--<define name="exclude-group">-->
-                <!--<include name="test-one-exclude" />-->
-            <!--</define>-->
             <run>
                 <include name="include-group" />
                 <exclude name="exclude-group" />
